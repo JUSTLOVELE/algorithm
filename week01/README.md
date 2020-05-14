@@ -3,13 +3,14 @@
 - 并查集  
    - dynamic connectivity  
    判断各个节点是否连通,常用的方法有两个:connected(a,b),union(a,b);connected返回布尔值判断a,b是否连通,union连通a,b。  
-   假设现有集合:{1,...,10},经过连续的union的后连通的组件称为connected components,所以至少有一个connected components
+   连通问题应用广泛,例如是否可以在p和q之间建立桥梁,通信线路,这些字符或整数对还可表示社交网络。  
+   假设现有集合:{1,...,10},经过连续的union的后连通的组件称为connected components,所以至少有一个connected components  
    ![connectedComponents](images/connectedComponents.png)  
    - Quick Find  
    为解决dynamic connectivity问题,我们提出了Quick Find算法,其本质上是一种贪心算法,例如union(3,4),要把id[4]=3,若再连通union(8,3),要把id[3]=8,同时要把3连通的对象4也要进行修改:id[4]=8,最终判断两个节点是否连通仅要看看他们对应的id值是否相同即可。  
    ![](images/union-find01.png)  
    ![](images/union-find02.png)  
-   但是Quick-find太慢了,是一个平方量级的算法,是一个平方量级的时间太慢了,对于大型的问题没有办法接受需要平方时间的算法,当计算机变得更大更快,平方时间算法实际上变得更慢了
+   但是Quick-find太慢了,无法处理大型问题,因为对于每一对输入union()都需要扫描整个id[]数组。它是一个平方量级的算法,是一个平方量级的时间太慢了,对于大型的问题没有办法接受需要平方时间的算法,当计算机变得更大更快,平方时间算法实际上变得更慢了
    - Quick Union  
    为解决Quick Find太慢的问题,提出第一个解决方案Quick union,其实是把节点按树一样组合起来,例如union(5,6),节点5的位置存放其根值6,最后我们判断两个节点是否连通我们需要回溯这个两个节点的connected component,看其根节点是否相等,相等则表示连通   
    ![](images/quick-union01.png)  
