@@ -1,4 +1,6 @@
-package com.union_find;
+package com;
+
+import org.junit.Test;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -96,5 +98,10 @@ public class QuickFindUF {
 			StdOut.println(uf.count() + " components");
 		}
 		StdOut.println(uf.count() + " components");
+	}
+	
+	@Test
+	public void tt() {
+		System.out.println("sds");
 	}
 }
