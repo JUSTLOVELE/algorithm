@@ -9,7 +9,7 @@ import util.Util;
 
 public class WeightedQuickUnionUF {
 
-	private int[] parents;
+	private int[] id;
 	
 	private int[] size;
 	
@@ -17,12 +17,12 @@ public class WeightedQuickUnionUF {
 	
 	public void init(int n) {
 		
-		parents = new int[n];
+		id = new int[n];
 		count = n;
 		size = new int[n];
 		
 		for(int i=0; i<n; i++) {
-			parents[i] = i;
+			id[i] = i;
 		}
 	}
 	
@@ -32,8 +32,8 @@ public class WeightedQuickUnionUF {
 	
 	public int find(int p) {
 		
-		while(p != parents[p]) {
-			p = parents[p];
+		while(p != id[p]) {
+			p = id[p];
 		}
 		
 		return p;
@@ -49,11 +49,11 @@ public class WeightedQuickUnionUF {
 		}
 		//把更小的节点指向更大的节点
 		if(size[rootP] < size[rootQ]) {
-			parents[rootP] = rootQ;
+			id[rootP] = rootQ;
 			size[rootQ] += size[rootP];
 		}else {
 			//一开始应该是相同的,所以这里默认是把Q的根指向p
-			parents[rootQ] = rootP;
+			id[rootQ] = rootP;
 			//然后把P的权重加大
 			size[rootP] += size[rootQ];
 		}

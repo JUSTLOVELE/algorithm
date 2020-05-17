@@ -42,9 +42,15 @@ public class QuickUnionUF {
 		count--;
 	}
 	
-	private boolean connected(int p, int q) {
-		return root(p) == root(q);
+	public int find(int p) {
+		
+		while(p != id[p]) {
+			p = id[p];
+		}
+		
+		return p;
 	}
+	 
 	
 	private int root(int i) {
 		
@@ -53,32 +59,6 @@ public class QuickUnionUF {
 		}
 		
 		return i;
-	}
-	
-	@Test
-	public void mediumUFtest() {
-		
-		List<String> datas = Util.readMediumUF();
-		int n = Integer.valueOf(datas.get(0));
-		QuickUnionUF uf = new QuickUnionUF();
-		uf.init(n);
-		
-		for (int i = 1; i < datas.size(); i++) {
-
-			String s = datas.get(i);
-			String[] array = s.split(" ");
-			int p = Integer.valueOf(array[0]);
-			int q = Integer.valueOf(array[1]);
-
-			if (uf.connected(p, q)) {
-				continue;
-			}
-
-			uf.union(p, q);
-			StdOut.println(p + " " + q);
-		}
-		
-		StdOut.println(uf.count() + " components");
 	}
 	
 	@Test
@@ -96,7 +76,7 @@ public class QuickUnionUF {
 			int p = Integer.valueOf(array[0]);
 			int q = Integer.valueOf(array[1]);
 
-			if (uf.connected(p, q)) {
+			if(uf.find(p) == uf.find(q)) {
 				continue;
 			}
 
