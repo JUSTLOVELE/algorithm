@@ -7,6 +7,11 @@ import org.junit.Test;
 import edu.princeton.cs.algs4.StdOut;
 import util.Util;
 
+/**
+ * 路径压缩的带权重的并查集算法
+ * @author yangzuliang
+ *
+ */
 public class WeightedQuickUnionPathCompressionUF {
 
 	private int[] id;
