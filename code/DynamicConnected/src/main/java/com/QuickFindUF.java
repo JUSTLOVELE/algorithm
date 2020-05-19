@@ -99,9 +99,4 @@ public class QuickFindUF {
 		}
 		StdOut.println(uf.count() + " components");
 	}
-	
-	@Test
-	public void tt() {
-		System.out.println("sds");
-	}
 }
