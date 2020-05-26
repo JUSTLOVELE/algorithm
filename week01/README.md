@@ -1,6 +1,11 @@
 
 # 知识点  
-- 并查集  
+- 并查集
+- 算法分析
+- ---
+
+
+## 并查集  
    - dynamic connectivity  
    判断各个节点是否连通,常用的方法有两个:connected(a,b),union(a,b);connected返回布尔值判断a,b是否连通,union连通a,b。  
    连通问题应用广泛,例如是否可以在p和q之间建立桥梁,通信线路,这些字符或整数对还可表示社交网络。  
@@ -21,7 +26,7 @@
    ![](images/quick-union03.png)  
    显然根据二叉树的理论,这棵节点为N的树的深度最多为lgN(2为底)  
    ![](images/quick-union04.png)  
-   还有种方法称为路径压缩(path compression),就是把瘦长的树平展开,提高查询效率  
+   还有种方法称为路径压缩(path compression),就是把瘦长的树平展开,提高查询效率,具体的做法就是在检查节点的同时将它们直接链接到根节点。  
    <table>
    <tr>
       <td><img src="images/compressPath01.png"></img></td>
@@ -30,10 +35,21 @@
    </tr>
    </table>
    - summary  
-   并查集算法不存在线性时间,带压缩路径的带权快速合并算法 已经足够接近线性算法了
-- 算法分析  
+   并查集算法不存在线性时间,带压缩路径的带权快速合并算法(weight quick union with compress path)已经足够接近线性算法了  
 
+ ---  
 
+## 算法分析  
+  一句话描述,代码不仅要写的漂亮,还要注重性能,特别是内循环,别搞个多重的,因为是幂指数级增长。然后从多年工作来说,嵌套循环可能在所难免,所以一定小循环驱动大循环。  
+  复习下基础:  
+  &emsp;bit: 0 or 1  
+  &emsp;byte: 8bits  
+  &emsp;Megabyte(MB): 1 millon or $2^{20}$  
+  &emsp;Gigabyte(GB): 1 billon or $2^{30}$  
+这里以java为例,现在的电脑通常是64位,我们假设64位的机器有8位的指针(指针占的内存会更多,有的jvm能压缩到4位,以避免内存消耗),具体占用内存大小如下:  
+   &emsp;对象头: 16 bytes  
+   &emsp;引用: 8 bytes  
+   &emsp;填充: 总之最后的内存要是8的倍数,不够就填上
 - 具体代码实现  
-  QuickFindUF.java
+  QuickFindUF.java  
   QuickUnionUF.java
