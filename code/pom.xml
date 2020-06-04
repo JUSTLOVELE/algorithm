@@ -6,5 +6,10 @@
   <packaging>pom</packaging>
   <modules>
   	<module>DynamicConnected</module>
+    <module>StacksAndQueues</module>
   </modules>
+
+  <dependencies>
+
+  </dependencies>
 </project>
