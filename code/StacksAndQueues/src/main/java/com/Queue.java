@@ -3,6 +3,7 @@ package com;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -103,6 +104,7 @@ public class Queue<Item> implements Iterable<Item>{
 
 
     public static void main(String[] args) {
+
         Queue<String> queue = new Queue<String>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();

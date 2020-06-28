@@ -1,50 +1,22 @@
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
 
-    private class DequeIterator<Item> implements Iterator<Item> {
-
-        private Node current = first;
-
-        @Override
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        @Override
-        public Item next() {
-
-            if(!hasNext()) {
-                throw new NoSuchElementException();
-            }
-
-            Node<Item> node = current;
-            current = node.nextNode;
-
-            return node.item;
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    private class Node<Item> {
+    private class Node {
         //值
         private Item item;
         //下一个节点
-        private Node<Item> nextNode;
+        private Node nextNode;
         //上一个节点
-        private Node<Item> preNode;
+        private Node preNode;
     }
 
     private int N = 0;
 
-    private Node<Item> first;
+    private Node first;
 
-    private Node<Item> lastNode;
+    private Node lastNode;
 
     @Override
     public Iterator<Item> iterator() {
@@ -71,8 +43,8 @@ public class Deque<Item> implements Iterable<Item> {
 
         validateAddOperation(item);
 
-        Node<Item> oldFisrtNode = first;
-        first = new Node<Item>();
+        Node oldFisrtNode = first;
+        first = new Node();
         first.item = item;
 
         if(oldFisrtNode == null) {
@@ -90,8 +62,8 @@ public class Deque<Item> implements Iterable<Item> {
     public void addLast(Item item) {
 
         validateAddOperation(item);
-        Node<Item> oldLastNode = lastNode;
-        lastNode = new Node<Item>();
+        Node oldLastNode = lastNode;
+        lastNode = new Node();
         lastNode.item = item;
 
         if(oldLastNode == null) {
@@ -117,10 +89,17 @@ public class Deque<Item> implements Iterable<Item> {
 
         validateRemoveOperation();
         Item item = first.item;
-        Node<Item> n = first;
+        Node n = first;
         first = first.nextNode;
         n = null;
         N--;
+
+        if(N == 0) {
+            lastNode = null;
+        }else{
+            first.preNode = null;
+        }
+
         return item;
     }
 
@@ -129,14 +108,21 @@ public class Deque<Item> implements Iterable<Item> {
 
         validateRemoveOperation();
         Item item = lastNode.item;
-        Node<Item> n = lastNode;
+        Node n = lastNode;
         lastNode = lastNode.preNode;
         n = null;
         N--;
+
+        if(N == 0) {
+            first = null;
+        }else {
+            lastNode.nextNode = null;
+        }
+
         return item;
     }
 
-    public void validateRemoveOperation() {
+    private void validateRemoveOperation() {
 
         if(N <= 0) {
             throw new NoSuchElementException();
@@ -148,24 +134,64 @@ public class Deque<Item> implements Iterable<Item> {
 
         Deque<String> deque = new Deque<String>();
         deque.addFirst("aaaa");
-        deque.addFirst("cccc");
-        deque.addFirst("dddd");
-        deque.addFirst("eeee");
-        deque.addLast("fffff");
-        deque.addLast("hhhhh");
-        deque.addLast("mmmmm");
-
         System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-
-        //DequeIterator<String> iterator = deque.iterator();
+        System.out.println(deque.isEmpty());
 
 
+
+//        deque.addFirst("cccc");
+//        deque.addFirst("dddd");
+//        deque.addFirst("eeee");
+//        deque.addLast("fffff");
+//        deque.addLast("hhhhh");
+//        deque.addLast("mmmmm");
+//
+//        Iterator<String> iterator = deque.iterator();
+//
+//        while (iterator.hasNext()) {
+//            System.out.println(iterator.next());
+//        }
+
+
+
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+//        System.out.println(deque.removeFirst());
+
+        //
+
+
+    }
+
+    private class DequeIterator implements Iterator<Item> {
+
+        private Node current = first;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Item next() {
+
+            if(!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            Node node = current;
+            current = node.nextNode;
+
+            return node.item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 }
