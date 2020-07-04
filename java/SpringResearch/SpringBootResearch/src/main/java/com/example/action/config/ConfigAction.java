@@ -19,14 +19,15 @@ public class ConfigAction {
     @Autowired
     private Ymlconfig _ymlconfig;
 
-    @GetMapping("/getConfig02")
-    public String getConfig02() {
-        return _ymlconfig.getTest02();
-    }
-
     @GetMapping("/getConfig")
     public String getConfig() {
 
       return testValue;
     }
+
+    @GetMapping("/getConfig02")
+    public String getConfig02() {
+        return _ymlconfig.getTest02();
+    }
+
 }
