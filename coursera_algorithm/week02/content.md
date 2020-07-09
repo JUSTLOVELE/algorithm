@@ -1,5 +1,8 @@
 # 知识点
 - stacks and queues
+- 选择排序
+- 插入排序
+- 希尔排序
 
 - ---
 ## Stacks and queues
@@ -27,7 +30,7 @@ public class Date
 ```
 所以要一个可控制比较大小的类就是让其实现Comparable.  
 还可以定义一些常用的方法
-```jaca
+```java
 private static boolean less(Comparable v, Comparable w) {
     return v.compareTo(w) < 0;
 }
@@ -49,6 +52,20 @@ private static void exch(Comparable[] a, int i, int j){
 第五次排序:1,2,5,6,7,8; 无交换就扫描7,8  
 第六次排序:1,2,5,6,7,8; 无交换就扫描8  
 这样很明显了,假设数组长度为N,第一次扫描N-1，第二次N-2，。。。，+1+0~$N^2$  
+```java
+   public static void sort(Comparable[] a) {
+
+        int N = a.length;
+
+        for(int i=0; i<N; i++) {
+            int min = i;
+            for(int j=i+1; j<N; j++) {
+                if(less(a[j], a[min])) min = j;
+            }
+            exch(a, i, min);
+        }
+    }
+```
 ## Insertion sort,插入排序  
 插入排序的算法效率大概是~$\frac{1}{4} N^2$  
 插入排序也是从左到右扫描,他保证当前索引左边的数组是有序的  
@@ -58,7 +75,39 @@ private static void exch(Comparable[] a, int i, int j){
 当前index 3对应元素6: 5,7,6,8,2,1 ; 5,6,7,8,2,1  
 当前index 4对应元素2: 5,6,7,2,8,1 ; 5,6,2,7,8,1 ; 5,2,6,7,8,1 ; 2,5,6,7,8,1  
 当前index 5对应元素1: 2,5,6,7,1,8 ; 2,5,6,1,7,8 ; 2,5,1,6,7,8 ; 2,1,5,6,7,8 ; 1,2,5,6,7,8  
-插入排序对于小规模数据和基本有序的数据效果不错
+插入排序对于小规模数据和基本有序的数据效果不错  
+```java
+public static void sort(Comparable[] a) {
+
+    int N = a.length;
+    for(int i=0; i<N; i++) {
+        for(int j=i; j>0; j--) {
+            if(less(a[j], a[j-1]))
+                exch(a, j, j-1);
+            else
+                break;
+        }
+    }
+}
+```
 ## 希尔排序,shell sort  
 希尔排序的出发点是插入排序,对于中等规模的数据性能还不错,具有很强的实用性  
 它把较大的数据集合分割成若干个小组,然后对每一个小组分别进行插入排序,此时插入排序所作用的数据量比较小,插入效率比较高,同时因为每个分组进入插入排序虽然整体未必是有序的,但是可以说是整体部分有序,这又提高了效率,通常用于嵌入式系统或者硬件排序类的系统,因为实现它只需要很少的代码
+```java
+    public static void sort(Comparable[] a) {
+        int n=a.length;
+        int h=1;
+
+        while(h < n/3) h = 3*h + 1;//1,4,13,40,121
+
+        while(h >=1) {
+            //h-sort the array
+            for(int i=h; i<n; i++){
+                for(int j=i; j>=h && less(a[j], a[j-h]); j -= h) {
+                    exch(a, j, j-h);
+                }
+            }
+            h /= 3;
+        }
+    }
+```
