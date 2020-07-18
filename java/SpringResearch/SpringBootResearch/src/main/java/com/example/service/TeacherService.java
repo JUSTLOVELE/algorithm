@@ -3,6 +3,11 @@ package com.example.service;
 public interface TeacherService {
 
     /**
+     * 分页
+     */
+    public void queryPagin();
+
+    /**
      * 保存对象
      * @param opId
      * @param name

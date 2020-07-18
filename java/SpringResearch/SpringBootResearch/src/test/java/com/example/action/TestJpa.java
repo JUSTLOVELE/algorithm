@@ -15,6 +15,11 @@ public class TestJpa {
     private TeacherService _teacherService;
 
     @Test
+    public void queryPagin() {
+        _teacherService.queryPagin();
+    }
+
+    @Test
     public void saveTest() {
         _teacherService.saveTeacher(UUID.randomUUID().toString(), "测试名字1");
     }

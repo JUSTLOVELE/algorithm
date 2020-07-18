@@ -11,7 +11,7 @@ public class SerialCloneTest {
             System.out.println(harry.toString());
             System.out.println(harry2.toString());
 
-            
+
         }catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,10 +4,13 @@ import com.example.dao.TeacherDao;
 import com.example.entity.TeacherEntity;
 import com.example.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +20,18 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private TeacherDao _teacherDao;
+
+    @Override
+    public void queryPagin() {
+
+        PageRequest pageRequest = PageRequest.of(0, 15);
+        Page<TeacherEntity> pages = _teacherDao.findAll(pageRequest);
+        Iterator<TeacherEntity> iterator = pages.iterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next().toString());
+        }
+    }
 
     @Override
     public void saveTeacher(String opId, String name) {
