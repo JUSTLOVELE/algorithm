@@ -14,7 +14,7 @@ public class TestOptional {
 	public void test6(){
 		Optional<Godness> godness = Optional.ofNullable(new Godness("林志玲"));
 
-		Optional<NewMan> op = Optional.ofNullable(new NewMan(godness));
+	Optional<NewMan> op = Optional.ofNullable(new NewMan(godness));
 		String name = getGodnessName2(op);
 		System.out.println(name);
 	}

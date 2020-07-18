@@ -1,5 +1,6 @@
 package com;
 
+import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -65,7 +66,8 @@ public class Shell {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        String[] a = StdIn.readAllStrings();
+        String s = "E A S Y Q U E S T I O N";
+        String[] a = s.split(" ");
         Shell.sort(a);
         show(a);
     }
