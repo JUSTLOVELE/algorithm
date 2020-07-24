@@ -8,6 +8,8 @@
   	<module>DynamicConnected</module>
     <module>StacksAndQueues</module>
       <module>algorithmFrame</module>
+      <module>Exercise</module>
+    <module>Week3_MergeSort</module>
   </modules>
 
   <dependencies>
