@@ -110,6 +110,7 @@
 	</build>
 	<modules>
 		<module>SpringBootResearch</module>
+		<module>SpringOauth2</module>
 	</modules>
 	
 	  <!--第三方maven私服-->
