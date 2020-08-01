@@ -13,5 +13,19 @@
     <module>ActiveMQ</module>
       <module>CurrentFrame</module>
   </modules>
+  <dependencies>
+
+    <dependency>
+      <groupId>net.jcip</groupId>
+      <artifactId>jcip-annotations</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.9</version>
+    </dependency>
+  </dependencies>
+
 
 </project>
