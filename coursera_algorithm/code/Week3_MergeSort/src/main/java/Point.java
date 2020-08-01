@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.util.Comparator;
+
 public class Point implements Comparable<Point> {
 
     private final int x;     // x-coordinate of this point
@@ -50,6 +51,22 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
+        if(that.y == this.y && that.x != this.x) {
+            //y轴相同,x轴不同则表示是一条横线斜率为0
+            return 0.0;
+        }
+
+        if(that.y != this.y && that.x == this.x) {
+            //y轴不同,x轴相同则表示是一条竖线,斜率为正无穷
+            return Double.POSITIVE_INFINITY;
+        }
+
+        if(that.y == this.y && that.x == this.x) {
+            //若x,y相同则返回负无穷
+            return Double.NEGATIVE_INFINITY;
+        }
+
+        return (that.y - this.y) / (that.x - this.x);
     }
 
     /**
@@ -66,6 +83,14 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
+        if(that.y == this.y && that.x == this.x) {
+            //若x,y相同则返回负无穷
+            return 0;
+        }else if(this.x < that.x && (this.y < that.y || this.y == that.y)) {
+            return -1;
+        }else{
+            return 1;
+        }
     }
 
     /**
@@ -76,6 +101,26 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
+        return new SlopeOrder();
+    }
+
+    private class SlopeOrder implements Comparator<Point> {
+
+        public int compare(Point o1, Point o2) {
+
+            Double d1 = slopeTo(o1);
+            Double d2 = slopeTo(o2);
+
+            if(d1 == d2) {
+                return 0;
+            }
+
+            if(d1 < d2) {
+                return -1;
+            }
+
+            return 1;
+        }
     }
 
 
