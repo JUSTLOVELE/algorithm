@@ -1,72 +1,76 @@
 import java.util.ArrayList;
-import java.util.List;
+import edu.princeton.cs.algs4.Merge;
 
-/**
- * 写一个BruteCollinearPoints.java程序，一次检查4个点，
- * 检查它们是否都在同一线段上，返回所有这样的线段。
- * 要检查点p、q、r和s是否共线，请检查p和q之间、p和r之间以及p和s之间的三个斜率是否都相等。
- */
 public class BruteCollinearPoints {
 
-    private Point[] points;
+    private Point[] pts;
+    private ArrayList<LineSegment> lines;
 
-    private int number;
-    // finds all line segments containing 4 points
-    public BruteCollinearPoints(Point[] points) {
-
-        if(points == null || points.length == 0)
-            throw new IllegalArgumentException();
-
-        for(Point point: points) {
-            if(point == null)
-                throw new IllegalArgumentException();
+    public BruteCollinearPoints(Point[] points){
+        // deep copy to avoid mutating the constructor argument
+        checkNullArgument(points);
+        this.pts = new Point[points.length];
+        for(int k = 0; k < points.length; k++){
+            pts[k] = points[k];
         }
 
-        this.points = points;
-        this.number = 0;
-    }
-    // the number of line segments
-    public           int numberOfSegments()    {
-        return number;
-    }
-    public LineSegment[] segments() {
+        checkDuplicatedElement(pts); // mergesort
+        lines = new ArrayList<LineSegment>(); // to avoid NullPointerException
 
-        List<LineSegment> lineSegments = new ArrayList<LineSegment>();
+        for(int k1 = 0; k1 < pts.length; k1++){
+            for(int k2 = k1 + 1; k2 < pts.length; k2++){
+                for(int k3 = k2 + 1; k3 < pts.length; k3++){
 
-        for(int i=0; i<points.length; i++) {
-
-            Point p = points[i];
-
-            for(int j=i+1; j<points.length; j++) {
-
-                Point q = points[j];
-
-                for(int n=j+1; n<points.length; n++) {
-
-                    Point r = points[n];
-
-                    for(int m=n+1; m<points.length; m++) {
-
-                        Point s = points[m];
-                        Double pq = p.slopeTo(q);
-                        Double pr = p.slopeTo(r);
-                        Double ps = p.slopeTo(s);
-                        if(pq == pr && pq == ps) {
-                            //四点共线
-                            number++;
-                            lineSegments.add(new LineSegment(p, s));
+                    if(pts[k1].slopeTo(pts[k2]) == pts[k1].slopeTo(pts[k3])){
+                        for(int k4 = k3 + 1; k4 < pts.length; k4++){
+                            if(pts[k1].slopeTo(pts[k2]) == pts[k1].slopeTo(pts[k4])){
+                                // k1, k2, k3, k4 are already sorted
+                                lines.add(new LineSegment(pts[k1], pts[k4]));
+                            }
                         }
                     }
                 }
             }
         }
-
-        LineSegment[] ls = new LineSegment[lineSegments.size()];
-        for(int i=0; i<lineSegments.size(); i++) {
-            ls[i] = lineSegments.get(i);
-        }
-        return ls;
     }
 
+    public int numberOfSegments(){
+        return lines.size();
+    }
+
+    // line segment will contain at most 4 collinear points
+    public LineSegment[] segments(){
+
+        return lines.toArray(new LineSegment[numberOfSegments()]);
+    }
+
+    private void checkDuplicatedElement(Point[] points){
+
+        // sort input array by natural order
+        Merge.sort(points);
+
+        // duplicated element
+        for(int i=1; i<points.length; i++){
+            if(points[i].slopeTo(points[i-1]) == Double.NEGATIVE_INFINITY){
+                throw new IllegalArgumentException("Input contains repeated element!\n");
+            }
+        }
+
+    }
+
+    private void checkNullArgument(Point[] points){
+
+        // null array
+        if(points == null){
+            throw new IllegalArgumentException("Input cannot be null!\n");
+        }
+
+        // null element
+        for(int i = 0; i < points.length; i++){
+            if(points[i] == null){
+                throw new IllegalArgumentException("Input contains null element!\n");
+            }
+        }
+    }
 
 }

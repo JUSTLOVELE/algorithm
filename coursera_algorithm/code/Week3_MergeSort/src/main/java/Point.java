@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.util.Comparator;
@@ -66,7 +67,7 @@ public class Point implements Comparable<Point> {
             return Double.NEGATIVE_INFINITY;
         }
 
-        return (that.y - this.y) / (that.x - this.x);
+        return (that.y - this.y)*1.0 / (that.x - this.x);
     }
 
     /**
@@ -141,5 +142,29 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
+
+        // rescale coordinates and turn on animation mode
+        StdDraw.setXscale(0, 32768);
+        StdDraw.setYscale(0, 32768);
+        StdDraw.show(0);
+        StdDraw.setPenRadius(0.01);  // make the points a bit larger
+
+        // read in the input
+        In in = new In("/input6.txt");
+        int N = in.readInt();
+        for (int i = 0; i < N; i++) {
+            int x = in.readInt();
+            int y = in.readInt();
+            Point p = new Point(x, y);
+            p.draw();
+
+        }
+
+        // display to screen all at once
+        StdDraw.show(0);
+
+        // reset the pen radius
+        StdDraw.setPenRadius();
+
     }
 }
