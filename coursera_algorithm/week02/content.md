@@ -52,6 +52,7 @@ private static void exch(Comparable[] a, int i, int j){
 第五次排序:1,2,5,6,7,8; 无交换就扫描7,8  
 第六次排序:1,2,5,6,7,8; 无交换就扫描8  
 这样很明显了,假设数组长度为N,第一次扫描N-1，第二次N-2，。。。，+1+0~$N^2$  
+选择排序是多比较少交换
 ```java
    public static void sort(Comparable[] a) {
 

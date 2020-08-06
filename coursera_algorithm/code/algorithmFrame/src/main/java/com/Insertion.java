@@ -1,8 +1,10 @@
 package com;
 
-import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 
+import java.awt.*;
 import java.util.Comparator;
 
 /**
@@ -13,6 +15,48 @@ public class Insertion {
     private Insertion() {
 
     }
+
+    public static void showSort(Double[]a){//绘制double类型
+        Double MAX= Double.MIN_VALUE;
+        Double MIN= Double.MAX_VALUE;
+        for (int i=0;i<a.length;i++){
+            if (a[i]<MIN) MIN=a[i];
+            if (a[i]>MAX) MAX=a[i];
+        }
+        DrawArray(a,0,0,MAX,MIN);//先画第一个
+        int N=a.length;
+        for (int i=1;i<N;i++){
+            //Insert a[i] among a[i-1],a[i-2],a[i-3]...
+            int j=i;
+            for (;j>0;j--)
+                if (!less(a[j],a[j-1]))//一旦不小于表明该元素已经到了合适的位置，不用再和前面的比较，因为前面已经排过序了
+                    break;
+                else
+                    exch(a,j,j-1);
+            DrawArray(a,j,i,MAX,MIN);
+        }
+    }
+
+
+    public static void DrawArray(Double[]a,int i,int j,Double MAX,Double MIN){
+        //i是insertion sort被新排序的位置，高亮显示Page253，j是当前位置，i+1到j为黑色，其余位置为灰色
+        StdDraw.setXscale(-1,a.length+1);
+        StdDraw.setYscale(MIN-(MAX-MIN)*0.4,MAX+(MAX-MIN)*0.4);
+        for (int index=0;index<a.length;index++){
+            if (index<i||index>j)
+                StdDraw.setPenColor(Color.gray);
+            else if (index>i&&index<=j)
+                StdDraw.setPenColor(Color.BLACK);
+            else //index==i
+                StdDraw.setPenColor(Color.red);
+            StdDraw.filledRectangle(index,a[index]/2.0,0.3,a[index]/2.0);
+        }
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis()-start<1000);//  wait 1s
+        StdDraw.clear();
+    }
+
+
     //保证数组当前索引的左边有序
     public static void sort(Comparable[] a) {
         int n = a.length;
@@ -126,8 +170,16 @@ public class Insertion {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        String[] a = StdIn.readAllStrings();
-        Insertion.sort(a);
-        show(a);
+//        String[] a = StdIn.readAllStrings();
+//        Insertion.sort(a);
+//        show(a);
+        int N=20;
+        Double[]a=new Double[N];
+        for (int i=0;i<N;i++)
+            a[i]= StdRandom.uniform(0.0,10.0);
+        Insertion.showSort(a);
+        assert  Insertion.isSorted(a);
+        Insertion.show(a);
+
     }
 }
