@@ -10,6 +10,7 @@
       <module>algorithmFrame</module>
       <module>Exercise</module>
     <module>Week3_MergeSort</module>
+      <module>week04_priority_queues</module>
   </modules>
 
   <dependencies>
