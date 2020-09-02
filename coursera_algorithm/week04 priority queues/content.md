@@ -1,7 +1,7 @@
 # 优先队列
 - <a href="#01">API and elementary implementations</a>
 - <a href="#02">binary heap</a>
-- 堆排序
+- <a href="#03">堆排序</a>
   
 ---
 
@@ -38,7 +38,7 @@
 |Fibonaci| 1 | logN (amortized) | 1|
 |impossible| 1 | 1| 1 |
 
-
+## <a id="03">堆排序</a>
 
 <style>
 table {
