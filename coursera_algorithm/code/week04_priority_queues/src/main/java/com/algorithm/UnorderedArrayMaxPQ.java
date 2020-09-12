@@ -1,5 +1,7 @@
 package com.algorithm;
 
+import edu.princeton.cs.algs4.Merge;
+import edu.princeton.cs.algs4.Quick;
 import edu.princeton.cs.algs4.Transaction;
 
 public class UnorderedArrayMaxPQ<Key extends Comparable<Key>> {
@@ -23,6 +25,8 @@ public class UnorderedArrayMaxPQ<Key extends Comparable<Key>> {
     public Key delMax() {
 
         int max = 0;
+
+        Quick
 
         for(int i=1; i<N; i++) {
             if(less(max, i)) {
